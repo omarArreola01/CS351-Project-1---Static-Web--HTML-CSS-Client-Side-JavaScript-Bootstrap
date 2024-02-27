@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account - Cologne Emporium</title>
+    <title>Create Account - Scent Haven</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -16,7 +16,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="home.html">Cologne Emporium</a>
+            <a class="navbar-brand" href="home.html">Scent Haven</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <h2>Create Account</h2>
-                <form>
+                <form onsubmit="return validateForm()">
                     <div class="mb-3">
                         <label for="signupUsername" class="form-label">Username</label>
                         <input type="text" class="form-control" id="signupUsername" placeholder="Enter desired username">
@@ -47,10 +47,12 @@
                     <div class="mb-3">
                         <label for="signupPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="signupPassword" placeholder="Enter desired password">
+                        <div id="passwordError" class="invalid-feedback" style="display: none;">Password must be at least 6 characters long.</div>
                     </div>
                     <div class="mb-3">
                         <label for="signupEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="signupEmail" placeholder="Enter your email">
+                        <div id="emailError" class="invalid-feedback" style="display: none;">Please enter a valid email address.</div>
                     </div>
                     <div class="mb-3">
                         <label for="signupStreet" class="form-label">Street</label>
@@ -67,10 +69,12 @@
                     <div class="mb-3">
                         <label for="signupZip" class="form-label">Zip</label>
                         <input type="text" class="form-control" id="signupZip" placeholder="Enter your zip code">
+                        <div id="zipError" class="invalid-feedback" style="display: none;">Please enter a valid zip code.</div>
                     </div>
                     <div class="mb-3">
                         <label for="signupPhone" class="form-label">Phone</label>
                         <input type="text" class="form-control" id="signupPhone" placeholder="Enter your phone number">
+						<div id="phoneError" class="invalid-feedback" style="display: none;">Please enter a valid phone number.</div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
 
@@ -82,7 +86,57 @@
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- function -->
+	<script>
+		//
+        function validateForm() {
+            var password = document.getElementById('signupPassword').value;
+            var email = document.getElementById('signupEmail').value;
+            var passwordRegex = /.{6,}/; // At least 6 characters
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+			var zip = document.getElementById('signupZip').value;
+            var phone = document.getElementById('signupPhone').value;
+            var isValid = true;
+			//validates the password
+            if (!passwordRegex.test(password)) {
+                document.getElementById('signupPassword').classList.add('is-invalid');
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('signupPassword').classList.remove('is-invalid');
+                document.getElementById('passwordError').style.display = 'none';
+            }
+			//email validation
+            if (!emailRegex.test(email)) {
+                document.getElementById('signupEmail').classList.add('is-invalid');
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('signupEmail').classList.remove('is-invalid');
+                document.getElementById('emailError').style.display = 'none';
+            }
+			//zip validation
+			if (!(/^\d{5}$/.test(zip))) {
+                document.getElementById('signupZip').classList.add('is-invalid');
+                isValid = false;
+            } else {
+                document.getElementById('signupZip').classList.remove('is-invalid');
+            }
+			//phone validation
+			if (!(/^\d{10}$/.test(phone))) {
+                document.getElementById('signupPhone').classList.add('is-invalid');
+                isValid = false;
+            } else {
+                document.getElementById('signupPhone').classList.remove('is-invalid');
+            }
+
+            return isValid;
+        }
+    </script>
 </body>
+	
+	
 
 </html>
 
