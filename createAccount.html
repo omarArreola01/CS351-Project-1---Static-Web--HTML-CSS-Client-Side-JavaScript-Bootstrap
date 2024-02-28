@@ -130,6 +130,22 @@
             } else {
                 document.getElementById('signupPhone').classList.remove('is-invalid');
             }
+			//city validation
+			if (city.trim() === '') {
+            document.getElementById('signupCity').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            document.getElementById('signupCity').classList.remove('is-invalid');
+        }
+
+        // State validation 
+        if (state.trim() === '') {
+            document.getElementById('signupState').classList.add('is-invalid');
+            isValid = false;
+        } else {
+            document.getElementById('signupState').classList.remove('is-invalid');
+        }
+	
 
             return isValid;
         }
