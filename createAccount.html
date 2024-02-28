@@ -57,14 +57,17 @@
                     <div class="mb-3">
                         <label for="signupStreet" class="form-label">Street</label>
                         <input type="text" class="form-control" id="signupStreet" placeholder="Enter your street">
+						<div id="streetError" class="invalid-feedback" style="display: none;">Please enter a valid street address.</div>
                     </div>
                     <div class="mb-3">
                         <label for="signupCity" class="form-label">City</label>
                         <input type="text" class="form-control" id="signupCity" placeholder="Enter your city">
+						<div id="cityError" class="invalid-feedback" style="display: none;">Please enter a valid City.</div>
                     </div>
                     <div class="mb-3">
                         <label for="signupState" class="form-label">State</label>
                         <input type="text" class="form-control" id="signupState" placeholder="Enter your state">
+						<div id="stateError" class="invalid-feedback" style="display: none;">Please enter a valid State.</div>
                     </div>
                     <div class="mb-3">
                         <label for="signupZip" class="form-label">Zip</label>
@@ -97,6 +100,9 @@
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
 			var zip = document.getElementById('signupZip').value;
             var phone = document.getElementById('signupPhone').value;
+			var city = document.getElementById('signupCity').value;
+        	var state = document.getElementById('signupState').value;
+			var street = document.getElementById('signupStreet').value;
             var isValid = true;
 			//validates the password
             if (!passwordRegex.test(password)) {
@@ -119,31 +125,47 @@
 			//zip validation
 			if (!(/^\d{5}$/.test(zip))) {
                 document.getElementById('signupZip').classList.add('is-invalid');
+				document.getElementById('zipError').style.display = 'block';
                 isValid = false;
             } else {
                 document.getElementById('signupZip').classList.remove('is-invalid');
+				document.getElementById('zipError').style.display = 'none';
             }
 			//phone validation
 			if (!(/^\d{10}$/.test(phone))) {
                 document.getElementById('signupPhone').classList.add('is-invalid');
+				document.getElementById('phoneError').style.display = 'block';
                 isValid = false;
             } else {
                 document.getElementById('signupPhone').classList.remove('is-invalid');
+				document.getElementById('phoneError').style.display = 'none';
             }
 			//city validation
 			if (city.trim() === '') {
             document.getElementById('signupCity').classList.add('is-invalid');
+			document.getElementById('cityError').style.display = 'block';
             isValid = false;
         } else {
             document.getElementById('signupCity').classList.remove('is-invalid');
+			document.getElementById('cityError').style.display = 'none';
         }
 
         // State validation 
         if (state.trim() === '') {
             document.getElementById('signupState').classList.add('is-invalid');
+			document.getElementById('stateError').style.display = 'block';
             isValid = false;
         } else {
             document.getElementById('signupState').classList.remove('is-invalid');
+			document.getElementById('stateError').style.display = 'none';
+        }
+		if (street.trim() === '') {
+            document.getElementById('signupStreet').classList.add('is-invalid');
+			document.getElementById('streetError').style.display = 'block';
+            isValid = false;
+        } else {
+            document.getElementById('signupStreet').classList.remove('is-invalid');
+			document.getElementById('streetError').style.display = 'none';
         }
 	
 
